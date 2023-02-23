@@ -1,7 +1,7 @@
 # ai-pytorch-tflite-converter
 Steps:
 
-##Getting the Model:
+## Getting the Model:
 To load the model saved with the torch.save method, we need to load the model.pt file along with the model definition (model instantiation). 
 To load the model saved with torchscript does not require model instantiation, only require .pt file.
 
