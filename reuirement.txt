@@ -1,0 +1,5 @@
+--upgrade silabs-mltk
+onnx onnx_tf
+openvino_dev
+onnx-simplifier onnxruntime
+openvino2tensorflow 
