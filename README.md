@@ -13,3 +13,20 @@ To ensure that the model is exported correctly, we can check it and print the gr
 
 ## Converting the ONNX Model to TFLite:
 Since the PyTorch and ONNX formats differ from TensorFlow, we need to use the OpenVINO API. First, the ONNX model is converted to the OpenVINO format and then to TFLite.
+
+## File structure 
+```
+
+├── mian
+│   ├── model.pt
+|   ├── requiremnet.txt
+│   ├── pt_to_tflite.py
+│   ├── model.onnx
+|   ├── openvino 
+│   │    ├── model.bin
+│   │    ├── model.xml
+│   │    ├── model.mapping
+│   ├── opnevinotoensorflow
+│        ├──model.tflite
+
+```
