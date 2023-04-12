@@ -1,35 +1,33 @@
-# ai-pytorch-tflite-converter
-## Introduction: 
-This script will convert a Torch model to ONNX, ONNX to OpenVINO, and OpenVINO to TFLite.
+### PyTorch To ONNX Converter:
 
-## install dependencies
-` pip install requirement.txt `
 
-## Workflow:
-First, give the model. 
-There are three ways to load and save the model:
-1) If the model is saved in OrderedDict format, loading the model requires the model definition. After that, the model should be saved in torch.script format and given as input.
-2) If the entire model is saved with torch.save, it can be loaded and saved in script format.
-3) If the model is saved with torch.script method, the model can be given directly.
+This tool can convert any PyTorch computer vision model to the ONNX format. The script supports models in different formats, including torch.nn, Ordereddict, and torch.jit. If the model is in Ordereddict format, a config file may be required to load the model architecture. The script can automatically detect the model format and convert it.
 
-# run this commond
 
- ` python3 onnx_to_tf.py model.pt -m model.onnx `
- 
-the above script will create the file structre like this
-## File structure 
-```
+#### Usage: 
+To use this steps follow these steps:
+                
+1. Clone the repository to local machine 
+2. Install the required packages by running pip  `pip install -r requirements.txt`
+3. Prepare the model and select the flag according to model library
+4. Run the command ```python3 input.py [model.path] [flag]``` to start the conversion(it will download some specific modules if require)
 
-├── mian
-│   ├── model.pt
-|   ├── requiremnet.txt
-│   ├── pt_to_tflite.py
-│   ├── model.onnx
-|   ├── openvino 
-│   │    ├── model.bin
-│   │    ├── model.xml
-│   │    ├── model.mapping
-│   ├── opnevinotoensorflow
-│        ├──model.tflite
 
-```
+| Model  | Flag |
+| ------------- | ------------- |
+| Simple script model(classification) | 's’  |
+| ultralytics(yolov5, 8)| ‘ul’  |
+| yolov6| 'y6’  |
+| yolov7| ‘y7’  |
+| openmmlab| ‘mm’  |
+| mm detection | ‘md’  |
+| mm classification| ‘mc’  |
+| detectron2  |'det'|
+
+### Output:
+The script will create an ONNX file with the same name as model_name with .onnx extension. The ONNX file will be saved in the same directory as the PyTorch model file.
+
+### Files:
+This tool consist of two Python files:
+1. Pytorch_to_onnx.py : the main script that perform PyTorch to ONNX conversion.
+2. Input.py : User friendly script that takes model path and flag input and pass them to pytorch_to_onnx.py to perform conversion.
