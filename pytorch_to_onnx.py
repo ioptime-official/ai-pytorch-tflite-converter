@@ -1,6 +1,7 @@
 import os
 import torch
 from collections import OrderedDict
+import shutil
 
 class PtOnnx:
     """         
@@ -19,16 +20,16 @@ class PtOnnx:
         self.flag = flag
         self.path = path
 
-        if self.flag == 'script':
+        if self.flag == 's':
             self.convert_script()
 
-        if self.flag == 'yolo':
+        if self.flag == 'ul':
             self.convert_yolo()
 
-        if self.flag == 'yolov6':
+        if self.flag == 'y6':
             self.convert_yolov6()
 
-        if self.flag == 'yolov7':
+        if self.flag == 'y7':
             self.convert_yolov7()
 
     def convert_script(self):
@@ -52,6 +53,7 @@ class PtOnnx:
         """
         Converts a ultralytics yolo v5 and v8 PyTorch model to ONNX format.
         """
+        # pip install ultralytics
         from ultralytics import YOLO
 
         model = YOLO(self.path)
@@ -97,15 +99,15 @@ class PtOnnx:
         """
         convert yolov7 model to onnx
         """
-        import collection
-        if isinstance(torch.load(self.path), (dict, OrderedDict)):
+        # import collection
+        # if isinstance(torch.load(self.path), (dict, OrderedDict)):
 
-          model= torch.hub.load('WongKinYiu/yolov7', 
+        model= torch.hub.load('WongKinYiu/yolov7', 
             'custom',
              self.path,
              force_reload= True)
-        else:
-          model= torch.load(self.path)
+        # else:
+        #   model= torch.load(self.path)
         img= torch.rand(1, 3, 640, 640)
         torch.onnx.export(model, img, 'yolov7.onnx', verbose=False, opset_version=12)
 
@@ -123,10 +125,18 @@ class PtOnnx:
         * we can find fom the last layer that it is det or cls model
         * cheak model is insatance of which mmcls or mmdet
 
+
+		
+        if model is of classifiction it will be load using init_model
+        detection and segmentation model is load using inti_detector
+        single shot detector model is converetted directly (yolo, ssd, convoldet)
+        multiple shot cannot convert directly(mask, faster(r-cnn))
+        it can be converted usign mmdeploy 
+        
+
+
         """
-
         if isinstance(torch.load(self.path), (dict, OrderedDict)):
-
             try:
                 model = init_model(self.config, self.path, device='cpu')
             
@@ -135,6 +145,7 @@ class PtOnnx:
         
         else:
             model= torch.load(self.path)
+            
 
         model.forward= model.forward_dummy
 
