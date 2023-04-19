@@ -31,3 +31,25 @@ The script will create an ONNX file with the same name as model_name with .onnx 
 This tool consist of two Python files:
 1. Pytorch_to_onnx.py : the main script that perform PyTorch to ONNX conversion.
 2. Input.py : User friendly script that takes model path and flag input and pass them to pytorch_to_onnx.py to perform conversion.
+
+
+
+|library| model | onnx| tflite
+| ------------- | ------------- |------------- | ------------- |
+|PyTorch|Custom Vgg|✅|✅|
+|PyTorch| Vgg  |✅|✅|
+|PyTorch|mobile net|✅|✅|
+| PyTorch| Vgg  |✅|✅|
+| PyTorch |resnet|✅|✅|
+| PyTorch| inception net|✅|✅|
+| PyTorch/ mmcls|efficient net|✅|✅|
+| Timms |efficent_ns|❔|❔|
+|ultralytics| YOLOv5  |✅|✅|
+|ultralytics| YOLOv8  |✅|✅|
+|meituan| YOLOv6 |✅|✅|
+|WongKinYiu| YOLOv7|✅|✅|
+|OpenMMLab| classification|✅|✅|
+|OpenMMLab| detection|✅|✅|
+|OpenMMLab| segmentation  |✅|✅|
+|Detectron| detection|❔|❔|
+|Detectron|segmentation|❔|❔|
