@@ -33,7 +33,7 @@ This tool consist of two Python files:
 2. Input.py : User friendly script that takes model path and flag input and pass them to pytorch_to_onnx.py to perform conversion.
 
 
-
+### Model Conversion tabel
 |library| model | onnx| tflite
 | ------------- | ------------- |------------- | ------------- |
 |PyTorch|Custom Vgg|✅|✅|
