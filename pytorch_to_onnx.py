@@ -2,7 +2,7 @@ import os
 import torch
 from collections import OrderedDict
 import shutil
-
+import subprocess
 class PtOnnx:
     """         
     A class to convert PyTorch models to ONNX format.
@@ -32,6 +32,9 @@ class PtOnnx:
         if self.flag == 'y7':
             self.convert_yolov7()
 
+        if self.flag == 'mm':
+            self.convert_mm()
+
     def convert_script(self):
         """
         Converts a simple PyTorch model to ONNX format.
@@ -53,7 +56,8 @@ class PtOnnx:
         """
         Converts a ultralytics yolo v5 and v8 PyTorch model to ONNX format.
         """
-        # pip install ultralytics
+        subprocess.call(['pip', 'install', 'ultralytics'])
+
         from ultralytics import YOLO
 
         model = YOLO(self.path)
@@ -66,7 +70,10 @@ class PtOnnx:
         # pip install onnx>=1.10.0 
         Converts a YOLOv6 PyTorch model to ONNX format.
         """
-        
+        subprocess.call(['pip', 'install', 'torch>=1.8.0'])
+        subprocess.call(['pip', 'install', 'onnx>=1.10.0'])
+
+
         if not os.path.exists("yolov6"):
             if not os.path.exists("YOLOv6"):
                 print("Cloning YOLOv6 repository...")
@@ -119,10 +126,10 @@ class PtOnnx:
 
     def convert_mm(self):
         """ 
-        convet open mm model to onnx format
+        convert open mm model to onnx format
 
         * find the model is of cls of det to automate process\
-        * we can find fom the last layer that it is det or cls model
+        *
         * cheak model is insatance of which mmcls or mmdet
 
 
@@ -136,6 +143,17 @@ class PtOnnx:
 
 
         """
+
+
+        subprocess.call(['pip', 'install', 'mmcv>=2.0.0rc4'])
+        subprocess.call(['pip', 'install', 'mmdet'])
+        subprocess.call(['pip', 'install', 'mmengine'])
+        subprocess.call(['pip', 'install', 'mmcls'])
+
+        from mmcls.apis import inference_model, init_model, show_result_pyplot 
+        from mmdet.apis import init_detector
+
+        
         if isinstance(torch.load(self.path), (dict, OrderedDict)):
             try:
                 model = init_model(self.config, self.path, device='cpu')
