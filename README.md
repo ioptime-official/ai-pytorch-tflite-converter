@@ -10,7 +10,7 @@ To use this steps follow these steps:
 1. Clone the repository to local machine 
 2. Install the required packages by running pip  `pip install -r requirements.txt`
 3. Prepare the model and select the flag according to model library
-4. Run the command ```python3 input.py [model.path] [flag]``` to start the conversion(it will download some specific modules if require)
+4. Run the command ```python3 input.py [flag] [model.path]``` to start the conversion(it will download some specific modules if require)
 
 
 | Model  | Flag |
